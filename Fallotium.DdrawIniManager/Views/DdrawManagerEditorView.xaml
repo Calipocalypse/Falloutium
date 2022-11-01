@@ -7,12 +7,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListView Background="Transparent" ItemsSource="{Binding DdrawEntries}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <TextBlock Foreground="White" Text="Data Source: "/>
+            <TextBlock Foreground="White" d:Text="C:/Windows/bla.ini" Text="{Binding IniPath}"/>
+        </StackPanel>
+        <ListView Grid.Row="1" Background="Transparent" ItemsSource="{Binding DdrawEntries}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Foreground="Wheat" IsChecked="{Binding IsEnabled}"/>
+                            <TextBlock Width="20" Background="White" TextAlignment="Right" Text="{Binding LineNumber}"/>
+                            <CheckBox Foreground="Wheat" IsChecked="{Binding IsEnabled}"/>
                         <TextBlock Foreground="Wheat" Text="{Binding Category}"/>
                         <StackPanel Orientation="Horizontal">
                             <Border Background="Gold" CornerRadius="5,0,0,5">

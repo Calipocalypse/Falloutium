@@ -26,21 +26,28 @@ namespace Fallotium.DdrawIniManager.Operations
 
             var entries = new List<DdrawEntry>();
 
+            var lineNumber = 0;
+
             foreach (var line in iniFileText)
             {
+                lineNumber++;
+
                 if (line.Length == 0) continue;
+                //If line is comment line
                 if (line[0] == ';')
                 {
-                    if (line.Contains('='))
+                    //If comment line is disabled setting
+                    if (line.Contains('=') && !line.Contains(' '))
                     {
                         var newLine = line.Replace(";", "");
                         (name, value) = GetSetting(newLine);
-                        var entry = new DdrawEntry(name, category, value, description, true, false);
+                        var entry = new DdrawEntry(name, category, value, description, lineNumber, true, false);
                         entries.Add(entry);
                         name = String.Empty;
                         value = String.Empty;
                         description = String.Empty;
                     }
+                    //If comment line is just comment
                     else
                     {
                         var newLine = line.Substring(1);
@@ -48,15 +55,17 @@ namespace Fallotium.DdrawIniManager.Operations
                         else description += '\n' + newLine;
                     }
                 }
+                //If line is category line
                 else if (line[0] == '[')
                 {
                     category = line;
                     description = String.Empty;
                 }
+                //If line setting
                 else if (line.Contains('='))
                 {
                     (name, value) = GetSetting(line);
-                    var entry = new DdrawEntry(name, category, value, description, false, false);
+                    var entry = new DdrawEntry(name, category, value, description, lineNumber, false, false);
                     entries.Add(entry);
                     name = String.Empty;
                     value = String.Empty;

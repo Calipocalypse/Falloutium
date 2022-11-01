@@ -12,13 +12,15 @@ namespace Fallotium.DdrawIniManager
         public object Value { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
+        public int LineNumber { get; set; }
         public bool IsEnabled { get; set; }
         public bool IsFavouriteSetting { get; set; }
 
-        public DdrawEntry(string name, string category, string value, string description, bool isCommented, bool isFavouriteSeting)
+        public DdrawEntry(string name, string category, string value, string description, int lineNumber, bool isCommented, bool isFavouriteSeting)
         {
             Name = name;
             Description = description;
+            LineNumber = lineNumber;
             Category = category;
             Value = value;
             IsEnabled = !isCommented;

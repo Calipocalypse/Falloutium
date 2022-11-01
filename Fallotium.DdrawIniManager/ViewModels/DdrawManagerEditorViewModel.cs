@@ -14,12 +14,12 @@ namespace Fallotium.DdrawIniManager
     {
 
         public List<DdrawEntry> DdrawEntries { get; set; }
-        //public List<List<DdrawEntry>> 
+        public string IniPath { get; set; } 
 
         public DdrawManagerEditorViewModel()
         {
-            var iniPath = Settings.GetSetting(Setting.DdrawIniFilePath);
-            DdrawEntries = DdrawReader.GetDdrawEntriesFromFile(iniPath).ToList();
+            IniPath = Settings.GetSetting(Setting.DdrawIniFilePath);
+            DdrawEntries = DdrawReader.GetDdrawEntriesFromFile(IniPath).ToList();
         }
     }
 }
