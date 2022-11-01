@@ -12,7 +12,7 @@ namespace Fallotium.Core.SettingsManagment
     {
         static string defaultSettingsFileDirectory => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/Falloutium 1.0";
         static string defaultSettingsFilePath => defaultSettingsFileDirectory + "/Settings.xml";
-        static string settingsXmlDirectory => defaultSettingsFileDirectory;
+        public static string settingsXmlDirectory => defaultSettingsFileDirectory;
         static string settingsXmlPath => defaultSettingsFilePath;
 
         static Dictionary<Setting, string> settings = new Dictionary<Setting, string>();
