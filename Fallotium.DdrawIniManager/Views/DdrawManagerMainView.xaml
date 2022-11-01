@@ -6,15 +6,7 @@
              xmlns:local="clr-namespace:Fallotium.DdrawIniManager.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Border Padding="15" Background="{StaticResource AuxilaryColor}" CornerRadius="15">
-            <StackPanel>
-                <TextBlock Text="To edit ddraw.ini file please pick file down there."  Foreground="{StaticResource PrimaryColor}" FontFamily="JH_Fallout" FontWeight="Medium"/>
-                <Button Style="{StaticResource ChooseDirectoryButton}" Command="{Binding DirectoryButton}" 
-                        Margin="15"/>
-                <TextBlock Text="{Binding IniPath}" d:Text="C:\Windows" Foreground="{StaticResource PrimaryColor}" FontFamily="JH_Fallout" FontWeight="Medium"/>
-                
-            </StackPanel>
-        </Border>
-    </StackPanel>
+    <Grid>
+        <ContentControl Content="{Binding Content}" />
+    </Grid>
 </UserControl>

@@ -4,12 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fallotium.DdrawIniManager.Models
+namespace Fallotium.DdrawIniManager
 {
-    internal class DdrawEntry
+    public class DdrawEntry
     {
-        internal string Name { get; set; }
-        internal object Value { get; set; }
-        internal string Category { get; set; }
+        public string Name { get; set; }
+        public object Value { get; set; }
+        public string Description { get; set; }
+        public string Category { get; set; }
+        public bool IsEnabled { get; set; }
+        public bool IsFavouriteSetting { get; set; }
+
+        public DdrawEntry(string name, string category, string value, string description, bool isCommented, bool isFavouriteSeting)
+        {
+            Name = name;
+            Description = description;
+            Category = category;
+            Value = value;
+            IsEnabled = !isCommented;
+            IsFavouriteSetting = isFavouriteSeting;
+        }
     }
 }

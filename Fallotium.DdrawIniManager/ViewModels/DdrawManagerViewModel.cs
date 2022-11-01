@@ -1,6 +1,7 @@
 ﻿using Fallotium.Core;
 using Fallotium.Core.SettingsManagment;
 using Fallotium.DdrawIniManager.Commands;
+using Fallotium.DdrawIniManager.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,26 +11,39 @@ using System.Windows.Input;
 
 namespace Fallotium.DdrawIniManager.ViewModels
 {
-    internal class DdrawManagerViewModel : ViewModelBase
+    public class DdrawManagerViewModel : ViewModelBase
     {
-
-        private string iniPath = Settings.GetSetting(Setting.DdrawIniFilePath);
-        public string IniPath
+        private object content;
+        public object Content
         {
-            get
-            {
-                return iniPath;
-            }
+            get { return content; }
             set
             {
-                iniPath = value;
-                OnPropertyChange(nameof(IniPath));
+                content = value;
+                OnPropertyChange(nameof(Content));
             }
         }
-        public ICommand DirectoryButton { get; }
+
         public DdrawManagerViewModel()
         {
-            DirectoryButton = new FilePointer(this);
+            if (Settings.GetSetting(Setting.DdrawIniFilePath) == String.Empty)
+            {
+                SetContentViewToFileFinder(this);
+            }
+            else
+            {
+                SetContentViewToEditor(this);
+            }
+        }
+
+        internal void SetContentViewToEditor(DdrawManagerViewModel parentVm)
+        {
+            Content = new DdrawManagerEditorView(parentVm);
+        }
+
+        internal void SetContentViewToFileFinder(DdrawManagerViewModel parentVm)
+        {
+            Content = new DdrawManagerPathPointer(parentVm);
         }
     }
 }

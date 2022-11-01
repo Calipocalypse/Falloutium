@@ -4,7 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <!-- #region Colros -->
-            <SolidColorBrush x:Key="PrimaryColor" Color="#FFFF8A00"/>
+            <SolidColorBrush x:Key="PrimaryColor" Color="#AD403F"/>
             <SolidColorBrush x:Key="SecondaryColor" Color="#0d0d0d"/>
             <SolidColorBrush x:Key="AuxilaryColor" Color="#161616"/>
             <SolidColorBrush x:Key="AdditionalColor" Color="#383838"/>

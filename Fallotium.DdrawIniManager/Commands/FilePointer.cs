@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Fallotium.DdrawIniManager.Commands
 {
-    internal class FilePointer : CommandBase
+    public class FilePointer : CommandBase
     {
         object vm;
         public FilePointer(object viewModel)
