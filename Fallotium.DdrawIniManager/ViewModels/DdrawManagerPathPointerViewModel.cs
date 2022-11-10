@@ -1,4 +1,6 @@
 ﻿using Fallotium.Core;
+using Fallotium.Core.FilesBackupManagment;
+using Fallotium.Core.FilesBackupManagment.Enum;
 using Fallotium.Core.SettingsManagment;
 using Fallotium.DdrawIniManager.Commands;
 using System;
