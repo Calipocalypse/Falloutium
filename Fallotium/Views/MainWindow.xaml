@@ -16,6 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Border Background="{StaticResource AuxilaryColor}"  BorderThickness="0" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" MouseDown="StackPanel_MouseDown" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown">
             <StackPanel  VerticalAlignment="Center" HorizontalAlignment="Center" >
@@ -26,11 +27,11 @@
             <Button Style="{StaticResource WindowButton}" Content="1" Command="{Binding WindowManipulationButton}" CommandParameter="Maximize"/>
             <Button Style="{StaticResource WindowButton}" Content="r" Command="{Binding WindowManipulationButton}" CommandParameter="Exit"/>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal"  HorizontalAlignment="Left">
-            <Image Margin="5" Source="../Images/Logo.png"/>
-            <TextBlock Margin="5" Foreground="{StaticResource PrimaryColor}" FontSize="15" Text="Fallotium 1.0"/>
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Image Margin="5" Source="../Images/Logo.png" RenderOptions.BitmapScalingMode="Fant"/>
+            <TextBlock Margin="5" Foreground="{StaticResource PrimaryColor}" FontFamily="Bahnschrift" FontSize="20" Text="FALLOUTIUM"/>
         </StackPanel>
-        <Border BorderThickness="0" BorderBrush="{StaticResource AdditionalColor}" Background="{StaticResource AuxilaryColor}" Grid.Column="0" Grid.Row="1">
+        <Border BorderThickness="0" BorderBrush="Transparent" Background="{StaticResource AuxilaryColor}" Grid.Column="0" Grid.Row="1">
             <StackPanel>
                 <StackPanel VerticalAlignment="Bottom">
                     <RadioButton Style="{StaticResource MenuRadioButton}" Content="SETUP AND RUN" GroupName="Menu" CommandParameter="GameSetup" Command="{Binding MenuButtons}" Margin="0,5,0,0"/>
@@ -57,5 +58,7 @@
         <Border Background="{StaticResource SecondaryColor}" CornerRadius="35,0,0,35" Grid.Row="1" Grid.Column="1">
             <ContentControl Margin="12,12,12,0" Content="{Binding Content}"/>
         </Border>
+        <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" 
+                BorderThickness="0" BorderBrush="Transparent" Background="{StaticResource AuxilaryColor}"/>
     </Grid>
 </Window>
