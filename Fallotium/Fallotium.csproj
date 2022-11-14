@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Fallotium.Core\Fallotium.Core.csproj" />
-    <ProjectReference Include="..\Fallotium.DdrawIniManager\Fallotium.DdrawIniManager.csproj" />
+    <ProjectReference Include="..\Fallotium.DdrawIniManager\Fallotium.IniManager.csproj" />
     <ProjectReference Include="..\Fallotium.MsgScanner\Fallotium.MsgScanner.csproj" />
   </ItemGroup>
 

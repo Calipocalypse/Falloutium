@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Fallotium.DdrawIniManager
 {
-    public class DdrawEntry
+    public class IniEntry
     {
         public string Name { get; set; }
         public object Value { get; set; }
@@ -15,8 +11,9 @@ namespace Fallotium.DdrawIniManager
         public int LineNumber { get; set; }
         public bool IsEnabled { get; set; }
         public bool IsFavouriteSetting { get; set; }
+        public List<string> SuggestedValues { get; set; } //ListView Binding
 
-        public DdrawEntry(string name, string category, string value, string description, int lineNumber, bool isCommented, bool isFavouriteSeting)
+        public IniEntry(string name, string category, string value, string description, int lineNumber, bool isCommented, bool isFavouriteSeting, List<string> suggestedValues)
         {
             Name = name;
             Description = description;
@@ -25,6 +22,7 @@ namespace Fallotium.DdrawIniManager
             Value = value;
             IsEnabled = !isCommented;
             IsFavouriteSetting = isFavouriteSeting;
+            SuggestedValues = suggestedValues;
         }
     }
 }

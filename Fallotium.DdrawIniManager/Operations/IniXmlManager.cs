@@ -11,14 +11,14 @@ using System.Xml.Linq;
 
 namespace Fallotium.DdrawIniManager.Operations
 {
-    internal static class DdrawXmlManager
+    internal static class IniXmlManager
     {
         private static string XmlFolderPath = Settings.settingsXmlDirectory + "/Ddraw/";
         private static string XmlPath = XmlFolderPath + "DdrawFilesInfo.xml";
 
         private static XElement xml;
 
-        static DdrawXmlManager()
+        static IniXmlManager()
         {
             CheckAndCreateDirectoryAndFile();
             xml = XElement.Load(XmlPath);
@@ -31,22 +31,37 @@ namespace Fallotium.DdrawIniManager.Operations
             }
             if (!File.Exists(XmlPath))
             {
-
+                xml = GetDdrawDocBase();
+                xml.Save(XmlPath);
             }
+        }
+
+        internal static void AddNewFile(string path)
+        {
+            var pathAttribute = new XAttribute("Path", path);
+            var newFileXElement = new XElement("DdrawFile", pathAttribute);
+            xml.Add(newFileXElement);
+            Save();
+        }
+
+        private static XElement GetDdrawDocBase()
+        {
+            return new XElement("DdrawFiles");
         }
 
         private static void Save()
         {
+            xml.Save(XmlPath);
         }
 
-        internal static ObservableCollection<string> GetOcOfFilePaths()
+        internal static ObservableCollection<IniFile> GetOcAllData()
         {
-
-        }
-
-        internal static ObservableCollection<DdrawFilePreset> GetOcOfFilePreset(string filePath)
-        {
-
+            var oc = new ObservableCollection<IniFile>();
+            foreach (var ddrawFile in xml.Descendants("DdrawFile"))
+            {
+                oc.Add(new IniFile(ddrawFile.Attribute("Path").Value));
+            }
+            return oc;
         }
     }
 }

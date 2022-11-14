@@ -19,12 +19,12 @@ namespace Fallotium.DdrawIniManager.Views
     /// <summary>
     /// Logika interakcji dla klasy DdrawEditorPathPointer.xaml
     /// </summary>
-    public partial class DdrawManagerPathPointer : UserControl
+    public partial class IniPathPointer : UserControl
     {
-        public DdrawManagerPathPointer(DdrawManagerViewModel ddrawManagerViewModel)
+        public IniPathPointer(IniMainViewModel ddrawManagerViewModel)
         {
             InitializeComponent();
-            DataContext = new DdrawManagerPathPointerViewModel(ddrawManagerViewModel);
+            DataContext = new IniPathPointerViewModel(ddrawManagerViewModel);
         }
     }
 }

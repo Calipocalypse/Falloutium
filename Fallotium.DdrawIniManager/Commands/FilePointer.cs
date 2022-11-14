@@ -1,5 +1,7 @@
 ﻿using Fallotium.Core;
 using Fallotium.Core.SettingsManagment;
+using Fallotium.DdrawIniManager.Operations;
+using Fallotium.DdrawIniManager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +14,10 @@ namespace Fallotium.DdrawIniManager.Commands
 {
     public class FilePointer : CommandBase
     {
-        object vm;
+        IniPathPointerViewModel vm;
         public FilePointer(object viewModel)
         {
-            this.vm = viewModel;
+            this.vm = (IniPathPointerViewModel)viewModel;
         }
         public override void Execute(object parameter)
         {
@@ -25,6 +27,8 @@ namespace Fallotium.DdrawIniManager.Commands
             {
                 var resultPath = dialog.FileName;
                 Settings.ChangeSetting(Setting.DdrawIniFilePath, resultPath);
+                IniXmlManager.AddNewFile(resultPath);
+                vm.IniPath = resultPath;
             }
             
             //vm.FilePath = dialog.SelectedPath;

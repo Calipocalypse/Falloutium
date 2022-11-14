@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,24 +8,24 @@ using System.Threading.Tasks;
 
 namespace Fallotium.DdrawIniManager.Operations
 {
-    internal static class DdrawReader
+    internal static class IniReader
     {
-        internal static IEnumerable<DdrawEntry> GetDdrawEntriesFromFile(string path)
+        internal static ObservableCollection<IniEntry> GetDdrawEntriesFromFile(string path)
         {
             var iniFileText = GetFileText(path);
             var ddrawEntriesList = GetDdrawEntriesFromText(iniFileText);
             return ddrawEntriesList;
         }
 
-        private static IEnumerable<DdrawEntry> GetDdrawEntriesFromText(string[] iniFileText)
+        private static ObservableCollection<IniEntry> GetDdrawEntriesFromText(string[] iniFileText)
         {
+            var oc = new ObservableCollection<IniEntry>();
+
             var name = String.Empty;
             var value = String.Empty;
             var description = String.Empty;
             var category = String.Empty;
             var isCommented = false;
-
-            var entries = new List<DdrawEntry>();
 
             var lineNumber = 0;
 
@@ -41,8 +42,8 @@ namespace Fallotium.DdrawIniManager.Operations
                     {
                         var newLine = line.Replace(";", "");
                         (name, value) = GetSetting(newLine);
-                        var entry = new DdrawEntry(name, category, value, description, lineNumber, true, false);
-                        entries.Add(entry);
+                        var entry = new IniEntry(name, category, value, description, lineNumber, true, false, new List<string>());
+                        oc.Add(entry);
                         name = String.Empty;
                         value = String.Empty;
                         description = String.Empty;
@@ -65,15 +66,15 @@ namespace Fallotium.DdrawIniManager.Operations
                 else if (line.Contains('='))
                 {
                     (name, value) = GetSetting(line);
-                    var entry = new DdrawEntry(name, category, value, description, lineNumber, false, false);
-                    entries.Add(entry);
+                    var entry = new IniEntry(name, category, value, description, lineNumber, false, false, new List<string>());
+                    oc.Add(entry);
                     name = String.Empty;
                     value = String.Empty;
                     description = String.Empty;
                 }
             }
 
-            return entries;
+            return oc;
         }
 
         private static (string name, string value) GetSetting(string line)

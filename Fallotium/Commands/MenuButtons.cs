@@ -31,7 +31,7 @@ namespace Fallotium.Commands
                     break;
                 case "GvarManager":
                     break;
-                case "DdrawManager": Vm.Content = new DdrawIniManager.Views.DdrawManagerMainView();
+                case "DdrawManager": Vm.Content = new DdrawIniManager.Views.IniMainView();
                     break;
             }
         }

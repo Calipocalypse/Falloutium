@@ -19,15 +19,20 @@ namespace Fallotium.DdrawIniManager.Views
     /// <summary>
     /// Logika interakcji dla klasy DdrawManagerEditorView.xaml
     /// </summary>
-    public partial class DdrawManagerEditorView : UserControl
+    public partial class IniEditorView : UserControl
     {
-        private DdrawManagerViewModel ddrawManagerViewModel;
+        private IniMainViewModel ddrawManagerViewModel;
 
-        public DdrawManagerEditorView(DdrawManagerViewModel ddrawManagerViewModel)
+        public IniEditorView(IniMainViewModel ddrawManagerViewModel)
         {
             InitializeComponent();
-            DataContext = new DdrawManagerEditorViewModel();
+            DataContext = new IniEditorViewModel();
             this.ddrawManagerViewModel = ddrawManagerViewModel;
+        }
+
+        public IniEditorView(IniMainViewModel ddrawManagerViewModel, string newPath)
+        {
+            DataContext = new IniEditorViewModel(newPath);
         }
     }
 }

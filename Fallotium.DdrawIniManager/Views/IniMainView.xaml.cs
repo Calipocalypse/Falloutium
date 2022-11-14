@@ -19,12 +19,12 @@ namespace Fallotium.DdrawIniManager.Views
     /// <summary>
     /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class DdrawManagerMainView : UserControl
+    public partial class IniMainView : UserControl
     {
-        public DdrawManagerMainView()
+        public IniMainView()
         {
             InitializeComponent();
-            DataContext = new DdrawManagerViewModel();
+            DataContext = new IniMainViewModel();
         }
     }
 }

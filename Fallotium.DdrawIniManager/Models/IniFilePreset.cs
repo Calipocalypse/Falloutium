@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fallotium.DdrawIniManager.Models
 {
-    internal class DdrawFilePreset
+    internal class IniFilePreset
     {
     }
 }

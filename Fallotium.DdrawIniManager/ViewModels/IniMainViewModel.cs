@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Fallotium.DdrawIniManager.ViewModels
 {
-    public class DdrawManagerViewModel : ViewModelBase
+    public class IniMainViewModel : ViewModelBase
     {
         private object content;
         public object Content
@@ -24,7 +24,7 @@ namespace Fallotium.DdrawIniManager.ViewModels
             }
         }
 
-        public DdrawManagerViewModel()
+        public IniMainViewModel()
         {
             if (Settings.GetSetting(Setting.DdrawIniFilePath) == String.Empty)
             {
@@ -36,14 +36,14 @@ namespace Fallotium.DdrawIniManager.ViewModels
             }
         }
 
-        internal void SetContentViewToEditor(DdrawManagerViewModel parentVm)
+        internal void SetContentViewToEditor(IniMainViewModel parentVm)
         {
-            Content = new DdrawManagerEditorView(parentVm);
+            Content = new IniEditorView(parentVm);
         }
 
-        internal void SetContentViewToFileFinder(DdrawManagerViewModel parentVm)
+        internal void SetContentViewToFileFinder(IniMainViewModel parentVm)
         {
-            Content = new DdrawManagerPathPointer(parentVm);
+            Content = new IniPathPointer(parentVm);
         }
     }
 }
