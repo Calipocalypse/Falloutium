@@ -1,39 +1,39 @@
 ﻿using Fallotium.Core;
 using Fallotium.Core.SettingsManagment;
+using Fallotium.DdrawIniManager;
 using Fallotium.DdrawIniManager.Models;
 using Fallotium.DdrawIniManager.Operations;
-using Fallotium.DdrawIniManager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 
-namespace Fallotium.DdrawIniManager.Commands
+namespace Fallotium.IniManager.Commands
 {
-    public class FilePointer : CommandBase
+    internal class FileAdder : CommandBase
     {
-        IniPathPointerViewModel vm;
-        public FilePointer(object viewModel)
+        private IniEditorViewModel Vm { get; }
+
+        public FileAdder(IniEditorViewModel iniEditorViewModel)
         {
-            this.vm = (IniPathPointerViewModel)viewModel;
+            Vm = iniEditorViewModel;
         }
+
+
         public override void Execute(object parameter)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "ddraw.ini (*.ini)|*.ini";
-            if(dialog.ShowDialog() == DialogResult.OK)
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
                 var resultPath = dialog.FileName;
                 Settings.ChangeSetting(Setting.DdrawIniFilePath, resultPath);
                 var newFile = new IniFile(resultPath);
                 IniXmlManager.AddNewFile(newFile);
-                vm.IniPath = resultPath;
+                Vm.AddIniFileToUi(newFile);
             }
-            
-            //vm.FilePath = dialog.SelectedPath;
         }
     }
 }

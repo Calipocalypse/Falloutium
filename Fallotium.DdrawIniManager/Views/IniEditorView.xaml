@@ -22,7 +22,8 @@
         </Grid>
         <WrapPanel Orientation="Horizontal" Grid.Row="0">
             <Border Background="{StaticResource PrimaryColor}" CornerRadius="15" Margin="5">
-            <ListBox ItemsSource="{Binding DdrawFiles}" x:Name="FilesListView" Background="Transparent" BorderBrush="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel>
+                <ListBox ItemsSource="{Binding DdrawFiles}" x:Name="FilesListView" Background="Transparent" BorderBrush="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
@@ -32,11 +33,18 @@
                         <DataTemplate>
                             <Border Margin="2" Background="{StaticResource AdditionalColor}" CornerRadius="5">
                                 <RadioButton Style="{StaticResource IniFileRadioButton}" GroupName="DdrawFiles" Background="Transparent" Foreground="White" Padding="3" VerticalAlignment="Center"
-                                             Content="{Binding FilePath}" Command="{Binding ElementName=FilesListView, Path=DataContext.DdrawFileSwitch}" CommandParameter="{Binding}"/>
+                                             Command="{Binding ElementName=FilesListView, Path=DataContext.DdrawFileSwitch}" CommandParameter="{Binding}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding FilePath}"/>
+                                            <Button Content="-" Command="{Binding ElementName=FilesListView, Path=DataContext.DdrawFileDeleter}" CommandParameter="{Binding}"/>
+                                    </StackPanel>
+                                </RadioButton>
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                </ListBox>
+                    </ListBox>
+                    <Button Margin="5" VerticalAlignment="Top" Height="25" Content="+" Command="{Binding AddNewFile}"/>
+                </WrapPanel>
             </Border>
             <!--<StackPanel Orientation="Horizontal">
                     <TextBlock Foreground="White" Padding="3" VerticalAlignment="Center" Text="Downloads/ddraw.ini"/>
@@ -45,12 +53,6 @@
                 </StackPanel>-->
             <Border Margin="2" Background="{StaticResource AdditionalColor}" CornerRadius="5">
                 <TextBlock Foreground="White" Padding="3" VerticalAlignment="Center" Text="Downloads/ddraw.ini"/>
-            </Border>
-            <Border Margin="2" Background="{StaticResource AdditionalColor}" CornerRadius="5">
-                <TextBlock Foreground="White" Padding="3" VerticalAlignment="Center" Text="Downloads/ddraw.ini"/>
-            </Border>
-            <Border Margin="2" Background="{StaticResource AdditionalColor}" CornerRadius="5">
-                <Button Content="+"/>
             </Border>
             <Button Style="{StaticResource TwoStateButton}" Foreground="green" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">

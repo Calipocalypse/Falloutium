@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Shapes;
 using System.Xml.Linq;
 
 namespace Fallotium.DdrawIniManager.Operations
@@ -36,11 +37,18 @@ namespace Fallotium.DdrawIniManager.Operations
             }
         }
 
-        internal static void AddNewFile(string path)
+        internal static void AddNewFile(IniFile file)
         {
-            var pathAttribute = new XAttribute("Path", path);
+            var pathAttribute = new XAttribute("Path", file.FilePath);
             var newFileXElement = new XElement("DdrawFile", pathAttribute);
             xml.Add(newFileXElement);
+            Save();
+        }
+
+        internal static void DeleteFile(IniFile file)
+        {
+            var xToDelete = xml.Descendants("DdrawFile").FirstOrDefault(x => x.Attribute("Path").Value == file.FilePath);
+            xToDelete.Remove();
             Save();
         }
 

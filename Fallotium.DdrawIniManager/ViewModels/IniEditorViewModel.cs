@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using Fallotium.DdrawIniManager.Models;
 using System.Windows.Input;
 using Fallotium.DdrawIniManager.Commands;
+using Fallotium.IniManager.Commands;
 
 namespace Fallotium.DdrawIniManager
 {
@@ -33,6 +34,8 @@ namespace Fallotium.DdrawIniManager
         public string IniPath { get; set; } 
 
         public ICommand DdrawFileSwitch { get; set; }
+        public ICommand DdrawFileDeleter { get; set; }
+        public ICommand AddNewFile { get; set; }
 
         public IniEditorViewModel()
         {
@@ -53,6 +56,8 @@ namespace Fallotium.DdrawIniManager
         {
             DdrawFiles = GetDdrawFiles();
             DdrawFileSwitch = new FileSwitch(this);
+            DdrawFileDeleter = new FileDeleter(this);
+            AddNewFile = new FileAdder(this);
         }
 
         private void ComposeData()
@@ -64,6 +69,16 @@ namespace Fallotium.DdrawIniManager
         private ObservableCollection<IniFile> GetDdrawFiles()
         {
             return new ObservableCollection<IniFile>{ new IniFile("TESE"), new IniFile("TERERESE") };
+        }
+
+        internal void RemoveIniFileFromUi(IniFile file)
+        {
+            DdrawFiles.Remove(file);
+        }
+
+        internal void AddIniFileToUi(IniFile file)
+        {
+            DdrawFiles.Add(file);
         }
     }
 }
