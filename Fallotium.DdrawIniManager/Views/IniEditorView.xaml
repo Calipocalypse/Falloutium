@@ -62,7 +62,19 @@
             </Button>
         </WrapPanel>
         <WrapPanel Orientation="Horizontal" Grid.Row="1">
-            <Border Margin="2" Background="{StaticResource PrimaryColor}" CornerRadius="5">
+            <ListView MinWidth="50" ItemsSource="{Binding Presets}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Background="red" Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+                <Border Margin="2" Background="{StaticResource PrimaryColor}" CornerRadius="5">
                 <TextBlock Foreground="White" Padding="3" VerticalAlignment="Center" Text="Original"/>
             </Border>
             <Border Margin="2" Background="{StaticResource AdditionalColor}" CornerRadius="5">

@@ -21,7 +21,7 @@ namespace Fallotium.DdrawIniManager.Commands
         public override void Execute(object parameter)
         {
             var ddrawFile = (IniFile)parameter;
-            parentVm.DdrawEntries = IniReader.GetDdrawEntriesFromFile(ddrawFile.FilePath);
+            parentVm.SwitchFile(ddrawFile);
         }
     }
 }

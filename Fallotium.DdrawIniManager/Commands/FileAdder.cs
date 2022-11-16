@@ -21,7 +21,6 @@ namespace Fallotium.IniManager.Commands
             Vm = iniEditorViewModel;
         }
 
-
         public override void Execute(object parameter)
         {
             OpenFileDialog dialog = new OpenFileDialog();

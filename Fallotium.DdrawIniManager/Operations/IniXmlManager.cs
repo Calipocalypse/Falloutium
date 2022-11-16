@@ -32,15 +32,51 @@ namespace Fallotium.DdrawIniManager.Operations
             }
             if (!File.Exists(XmlPath))
             {
-                xml = GetDdrawDocBase();
-                xml.Save(XmlPath);
+                CreateBasicXmlFile();
             }
+        }
+
+        internal static void CreateBasicXmlFile() => Save(new ObservableCollection<IniFile>());
+        internal static void Save(ObservableCollection<IniFile> iniFiles)
+        {
+            var newXmlFileContent = GetXElementsOfFiles(iniFiles);
+            xml = newXmlFileContent;
+            xml.Save(XmlPath);
+        }
+
+        private static XElement GetXElementsOfFiles(ObservableCollection<IniFile> iniFiles)
+        {
+            var XIniFiles = new XElement("DdrawFiles");
+            foreach (var iniFile in iniFiles)
+            {
+                var xIniFile =
+                    new XElement("DdrawFile",
+                    new XAttribute("Path", iniFile.FilePath));
+
+                var presets = iniFile.Presets;
+                foreach (var preset in presets)
+                {
+                    var xIniFilePresets =
+                    new XElement("DdrawFile",
+                    new XAttribute("Path", iniFile.FilePath),
+                        new XElement("Preset",
+                        new XAttribute("Name", preset.Name),
+                        new XAttribute("Id", preset.Id)));
+
+                    xIniFile.Add(xIniFilePresets);
+                }
+                
+                XIniFiles.Add(xIniFile);
+            }
+            return XIniFiles;
         }
 
         internal static void AddNewFile(IniFile file)
         {
             var pathAttribute = new XAttribute("Path", file.FilePath);
             var newFileXElement = new XElement("DdrawFile", pathAttribute);
+            var newOriginalPreset = new XElement("Preset", new XAttribute("Name", "Original"), new XAttribute("Id", 0));
+            newFileXElement.Add(newOriginalPreset);
             xml.Add(newFileXElement);
             Save();
         }
@@ -67,7 +103,18 @@ namespace Fallotium.DdrawIniManager.Operations
             var oc = new ObservableCollection<IniFile>();
             foreach (var ddrawFile in xml.Descendants("DdrawFile"))
             {
-                oc.Add(new IniFile(ddrawFile.Attribute("Path").Value));
+                string filePath = ddrawFile.Attribute("Path").Value;
+                var iniFile = new IniFile(filePath);
+                var presetOc = new ObservableCollection<Preset>();
+                foreach (var xPreset in ddrawFile.Descendants("Preset"))
+                {
+                    var id = xPreset.Attribute("Id").Value;
+                    var name = xPreset.Attribute("Name").Value;
+                    var preset = new Preset(Int32.Parse(id), name);
+                    presetOc.Add(preset);
+                }
+                iniFile.Presets = presetOc;
+                oc.Add(iniFile);
             }
             return oc;
         }

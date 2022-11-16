@@ -29,8 +29,19 @@ namespace Fallotium.DdrawIniManager
                 OnPropertyChange(nameof(DdrawEntries));
             }
         }
-        public ObservableCollection<IniFile> DdrawFiles { get;
-            set; }
+        public ObservableCollection<IniFile> DdrawFiles { get; set; }
+
+        private ObservableCollection<Preset> presets;
+        public ObservableCollection<Preset> Presets
+        {
+            get { return presets; }
+            set
+            {
+                presets = value;
+                OnPropertyChange(nameof(Presets));
+            }
+        }
+
         public string IniPath { get; set; } 
 
         public ICommand DdrawFileSwitch { get; set; }
@@ -54,7 +65,6 @@ namespace Fallotium.DdrawIniManager
 
         private void ComposeElements()
         {
-            DdrawFiles = GetDdrawFiles();
             DdrawFileSwitch = new FileSwitch(this);
             DdrawFileDeleter = new FileDeleter(this);
             AddNewFile = new FileAdder(this);
@@ -63,12 +73,12 @@ namespace Fallotium.DdrawIniManager
         private void ComposeData()
         {
             DdrawFiles = IniXmlManager.GetOcAllData();
-            //DdrawEntries = DdrawReader.GetDdrawEntriesFromFile(IniPath).ToList();
+            Presets = new ObservableCollection<Preset>();
         }
 
-        private ObservableCollection<IniFile> GetDdrawFiles()
+        internal void UpdatePresetsUi(IniFile activeFile)
         {
-            return new ObservableCollection<IniFile>{ new IniFile("TESE"), new IniFile("TERERESE") };
+            Presets = activeFile.Presets;
         }
 
         internal void RemoveIniFileFromUi(IniFile file)
@@ -79,6 +89,14 @@ namespace Fallotium.DdrawIniManager
         internal void AddIniFileToUi(IniFile file)
         {
             DdrawFiles.Add(file);
+        }
+
+        internal void SwitchFile(IniFile iniFile)
+        {
+            //Fill file content area
+            DdrawEntries = IniReader.GetDdrawEntriesFromFile(iniFile.FilePath);
+            //Update Presets
+            UpdatePresetsUi(iniFile);
         }
     }
 }
