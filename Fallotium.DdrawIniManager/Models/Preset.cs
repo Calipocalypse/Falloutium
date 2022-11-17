@@ -13,11 +13,15 @@ namespace Fallotium.DdrawIniManager.Models
         public string Name { get; set; }
         public int Id { get; set; }
         public ObservableCollection<PresetOption> PresetOptions { get; set; }
+        public IniFile Parent { get; set; }
 
-        public Preset(int id, string name)
+        public Preset(int id, string name, IniFile parent)
         {
             Id = id;
             Name = name;
+            Parent = parent;
         }
+
+        
     }
 }

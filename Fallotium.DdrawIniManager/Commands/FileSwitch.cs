@@ -13,7 +13,7 @@ namespace Fallotium.DdrawIniManager.Commands
     {
         private IniEditorViewModel parentVm;
 
-        public FileSwitch(IniEditorViewModel parentVm)
+        internal FileSwitch(IniEditorViewModel parentVm)
         {
             this.parentVm = parentVm;
         }

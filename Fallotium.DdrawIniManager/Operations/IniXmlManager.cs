@@ -1,5 +1,4 @@
-﻿using Fallotium.Core.Interface;
-using Fallotium.Core.SettingsManagment;
+﻿using Fallotium.Core.SettingsManagment;
 using Fallotium.DdrawIniManager.Models;
 using System;
 using System.Collections.Generic;
@@ -13,18 +12,26 @@ using System.Xml.Linq;
 
 namespace Fallotium.DdrawIniManager.Operations
 {
-    internal static class IniXmlManager : IXmlManager
+    internal static class IniXmlManager
     {
-        private static string XmlFolderPath = Settings.settingsXmlDirectory + "/Ddraw/";
-        private static string XmlPath = XmlFolderPath + "DdrawFilesInfo.xml";
+        private static string XmlFolderPath;
+        private static string XmlPath;
 
         private static XElement xml;
 
         static IniXmlManager()
         {
+            ComposePaths();
             CheckAndCreateDirectoryAndFile();
             xml = XElement.Load(XmlPath);
         }
+
+        private static void ComposePaths()
+        {
+            XmlFolderPath = Settings.settingsXmlDirectory + "/Ddraw/";
+            XmlPath = XmlFolderPath + "DdrawFilesInfo.xml";
+        }
+
         private static void CheckAndCreateDirectoryAndFile()
         {
             if (!Directory.Exists(XmlFolderPath))
@@ -89,9 +96,25 @@ namespace Fallotium.DdrawIniManager.Operations
             Save();
         }
 
-        private static XElement GetDdrawDocBase()
+        internal static void AddNewPreset(Preset preset, IniFile activeFile)
         {
-            return new XElement("DdrawFiles");
+            var xIniFile = xml.Descendants("DdrawFile").FirstOrDefault(x => x.Attribute("Path").Value == activeFile.FilePath);
+            var xPreset = new XElement("Preset",
+                new XAttribute("Name", preset.Name),
+                new XAttribute("Id", preset.Id));
+
+            xIniFile.Add(xPreset);
+            Save();
+        }
+
+        internal static void DeletePreset(Preset preset)
+        {
+            var iniFile = preset.Parent;
+            var xIniFiles = xml.Descendants("DdrawFile");
+            var xIniFile = xIniFiles.FirstOrDefault(x => x.Attribute("Path").Value == iniFile.FilePath);
+            var xPreset = xIniFile.Descendants("Preset").FirstOrDefault(x => x.Attribute("Id").Value == preset.Id.ToString());
+            xPreset.Remove();
+            Save();
         }
 
         private static void Save()
@@ -111,7 +134,7 @@ namespace Fallotium.DdrawIniManager.Operations
                 {
                     var id = xPreset.Attribute("Id").Value;
                     var name = xPreset.Attribute("Name").Value;
-                    var preset = new Preset(Int32.Parse(id), name);
+                    var preset = new Preset(Int32.Parse(id), name, iniFile);
                     presetOc.Add(preset);
                 }
                 iniFile.Presets = presetOc;

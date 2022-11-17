@@ -14,10 +14,11 @@ using Fallotium.DdrawIniManager.Models;
 using System.Windows.Input;
 using Fallotium.DdrawIniManager.Commands;
 using Fallotium.IniManager.Commands;
+using System.Windows;
 
 namespace Fallotium.DdrawIniManager
 {
-    public class IniEditorViewModel : ViewModelBase
+    internal class IniEditorViewModel : ViewModelBase
     {
         private ObservableCollection<IniEntry> ddrawEntries;
         public ObservableCollection<IniEntry> DdrawEntries
@@ -42,11 +43,67 @@ namespace Fallotium.DdrawIniManager
             }
         }
 
+        private IniFile activeFile;
+        public IniFile ActiveFile
+        {
+            get { return activeFile; }
+            set
+            {
+                activeFile = value;
+                OnPropertyChange(nameof(ActiveFile));
+                UpdatePresetsUi(activeFile);
+
+                PresetParam.iniFile = value;
+                OnPropertyChange(nameof(PresetParam));
+
+                if (value != null) AddPresetVisibility = Visibility.Visible;
+                else AddPresetVisibility = Visibility.Collapsed;
+            }
+        }
+
+        private IniFilePresetTextParam presetParam = new IniFilePresetTextParam();
+        public IniFilePresetTextParam PresetParam
+        {
+            get { return presetParam; }
+            set
+            {
+                presetParam = value;
+                OnPropertyChange(nameof(PresetParam));
+            }
+        }
+
+        private string addPresetTextBoxText = String.Empty;
+        public string AddPresetTextBoxText
+        {
+            get { return addPresetTextBoxText; }
+            set
+            {
+                addPresetTextBoxText = value;
+                OnPropertyChange(nameof(AddPresetTextBoxText));
+
+                PresetParam.presetName = value;
+                OnPropertyChange(nameof(PresetParam));
+            }
+        }
+
+        private Visibility addPresetVisibility = Visibility.Collapsed;
+        public Visibility AddPresetVisibility
+        {
+            get { return addPresetVisibility; }
+            set
+            {
+                addPresetVisibility = value;
+                OnPropertyChange(nameof(AddPresetVisibility));
+            }
+        }
+
         public string IniPath { get; set; } 
 
         public ICommand DdrawFileSwitch { get; set; }
         public ICommand DdrawFileDeleter { get; set; }
         public ICommand AddNewFile { get; set; }
+        public ICommand AddPreset { get; set; }
+        public ICommand DeletePreset { get; set; }
 
         public IniEditorViewModel()
         {
@@ -68,6 +125,8 @@ namespace Fallotium.DdrawIniManager
             DdrawFileSwitch = new FileSwitch(this);
             DdrawFileDeleter = new FileDeleter(this);
             AddNewFile = new FileAdder(this);
+            AddPreset = new PresetAdder(this);
+            DeletePreset = new PresetDelete(this);
         }
 
         private void ComposeData()
@@ -95,8 +154,13 @@ namespace Fallotium.DdrawIniManager
         {
             //Fill file content area
             DdrawEntries = IniReader.GetDdrawEntriesFromFile(iniFile.FilePath);
-            //Update Presets
-            UpdatePresetsUi(iniFile);
+            ActiveFile = iniFile;
+        }
+
+        internal class IniFilePresetTextParam
+        {
+            internal string presetName;
+            internal IniFile iniFile;
         }
     }
 }

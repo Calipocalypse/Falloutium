@@ -54,7 +54,8 @@
             </Button>
         </WrapPanel>
         <WrapPanel Orientation="Horizontal" Grid.Row="1">
-            <ListView MinWidth="50" ItemsSource="{Binding Presets}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+            <ListView MinWidth="50" ItemsSource="{Binding Presets}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0"
+                      x:Name="PresetListView">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"/>
@@ -67,10 +68,17 @@
                                 <TextBlock Foreground="White" Padding="3" VerticalAlignment="Center" Text="{Binding Name}"/>
                             </Border>
                             <Button Padding="3" FontSize="15" BorderThickness="0" Background="Transparent" Foreground="{StaticResource PrimaryColor}" FontFamily="Wingdings" Content="&lt;"/>
+                            <Button Content="-" Command="{Binding ElementName=PresetListView, Path=DataContext.DeletePreset}" CommandParameter="{Binding}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Border Background="{StaticResource PrimaryColor}" CornerRadius="5" Margin="5" Visibility="{Binding AddPresetVisibility}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox MinWidth="50" Text="{Binding AddPresetTextBoxText, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Content="+" Command="{Binding AddPreset}" CommandParameter="{Binding PresetParam}"/>
+                </StackPanel>
+            </Border>
         </WrapPanel>
         <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="3" Grid.Column="0" Background="Transparent" ItemsSource="{Binding DdrawEntries}">
                 <ListBox.ItemsPanel>
