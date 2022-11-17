@@ -41,7 +41,7 @@
                     <RadioButton Style="{StaticResource MenuRadioButton}" Content="QUEST MANAGER" GroupName="Menu" CommandParameter="GvarManager" Command="{Binding MenuButtons}"/>
                     <RadioButton Style="{StaticResource MenuRadioButton}" Content="ENDGAME MANAGER" GroupName="Menu" CommandParameter="GvarManager" Command="{Binding MenuButtons}"/>
                     <Border Height="1" BorderThickness="0,1,0,0" Margin="10,5,10,5" BorderBrush="{StaticResource AdditionalColor}" Background="{StaticResource AuxilaryColor}"/>
-                    <RadioButton Style="{StaticResource MenuRadioButton}" Content="DDRAW.INI FAST SETUP" GroupName="Menu" CommandParameter="DdrawManager" Command="{Binding MenuButtons}"/>
+                    <RadioButton Style="{StaticResource MenuRadioButton}" Content="INI FILES MANAGER" GroupName="Menu" CommandParameter="DdrawManager" Command="{Binding MenuButtons}"/>
                     <RadioButton Style="{StaticResource MenuRadioButton}" Content="DIALOGUE DESIGNER" Foreground="#333333" IsEnabled="False" GroupName="Menu" CommandParameter="GvarManager" Command="{Binding MenuButtons}"/>
                 </StackPanel>
             </StackPanel>

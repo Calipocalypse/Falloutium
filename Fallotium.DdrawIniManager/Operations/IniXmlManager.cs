@@ -1,4 +1,5 @@
-﻿using Fallotium.Core.SettingsManagment;
+﻿using Fallotium.Core.Interface;
+using Fallotium.Core.SettingsManagment;
 using Fallotium.DdrawIniManager.Models;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Xml.Linq;
 
 namespace Fallotium.DdrawIniManager.Operations
 {
-    internal static class IniXmlManager
+    internal static class IniXmlManager : IXmlManager
     {
         private static string XmlFolderPath = Settings.settingsXmlDirectory + "/Ddraw/";
         private static string XmlPath = XmlFolderPath + "DdrawFilesInfo.xml";

@@ -23,37 +23,29 @@
         <WrapPanel Orientation="Horizontal" Grid.Row="0">
             <Border Background="{StaticResource PrimaryColor}" CornerRadius="15" Margin="5">
                 <WrapPanel>
-                <ListBox ItemsSource="{Binding DdrawFiles}" x:Name="FilesListView" Background="Transparent" BorderBrush="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border Margin="2" Background="{StaticResource AdditionalColor}" CornerRadius="5">
-                                <RadioButton Style="{StaticResource IniFileRadioButton}" GroupName="DdrawFiles" Background="Transparent" Foreground="White" Padding="3" VerticalAlignment="Center"
+                    <ListBox ItemsSource="{Binding DdrawFiles}" x:Name="FilesListView" Background="Transparent" BorderBrush="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="2" Background="{StaticResource AdditionalColor}" CornerRadius="5">
+                                    <RadioButton Style="{StaticResource IniFileRadioButton}" GroupName="DdrawFiles" Background="Transparent" Foreground="White" Padding="3" VerticalAlignment="Center"
                                              Command="{Binding ElementName=FilesListView, Path=DataContext.DdrawFileSwitch}" CommandParameter="{Binding}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding FilePath}"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding FilePath}"/>
                                             <Button Content="-" Command="{Binding ElementName=FilesListView, Path=DataContext.DdrawFileDeleter}" CommandParameter="{Binding}"/>
-                                    </StackPanel>
-                                </RadioButton>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                                        </StackPanel>
+                                    </RadioButton>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                     <Button Margin="5" VerticalAlignment="Top" Height="25" Content="+" Command="{Binding AddNewFile}"/>
                 </WrapPanel>
-            </Border>
-            <!--<StackPanel Orientation="Horizontal">
-                    <TextBlock Foreground="White" Padding="3" VerticalAlignment="Center" Text="Downloads/ddraw.ini"/>
-                    <Button Padding="3" FontSize="15" BorderThickness="0" Background="Transparent" FontWeight="ExtraBold" Foreground="{StaticResource AdditionalColor}" FontFamily="Wingdings" Content="&lt;"/>
-                    <Button Padding="3" FontSize="15" BorderThickness="0" Background="Transparent" FontWeight="ExtraBold" Foreground="{StaticResource AdditionalColor}" FontFamily="Webdings" Content="r"/>
-                </StackPanel>-->
-            <Border Margin="2" Background="{StaticResource AdditionalColor}" CornerRadius="5">
-                <TextBlock Foreground="White" Padding="3" VerticalAlignment="Center" Text="Downloads/ddraw.ini"/>
-            </Border>
+            </Border> 
             <Button Style="{StaticResource TwoStateButton}" Foreground="green" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Backup"/>
@@ -62,7 +54,7 @@
             </Button>
         </WrapPanel>
         <WrapPanel Orientation="Horizontal" Grid.Row="1">
-            <ListView MinWidth="50" ItemsSource="{Binding Presets}">
+            <ListView MinWidth="50" ItemsSource="{Binding Presets}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"/>
@@ -70,20 +62,15 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Background="red" Text="{Binding Name}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Margin="2" Background="{StaticResource PrimaryColor}" CornerRadius="5">
+                                <TextBlock Foreground="White" Padding="3" VerticalAlignment="Center" Text="{Binding Name}"/>
+                            </Border>
+                            <Button Padding="3" FontSize="15" BorderThickness="0" Background="Transparent" Foreground="{StaticResource PrimaryColor}" FontFamily="Wingdings" Content="&lt;"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-                <Border Margin="2" Background="{StaticResource PrimaryColor}" CornerRadius="5">
-                <TextBlock Foreground="White" Padding="3" VerticalAlignment="Center" Text="Original"/>
-            </Border>
-            <Border Margin="2" Background="{StaticResource AdditionalColor}" CornerRadius="5">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Foreground="White" Padding="3" VerticalAlignment="Center" Text="Unnamed Preset 1"/>
-                    <Button Padding="3" FontSize="15" BorderThickness="0" Background="Transparent" Foreground="{StaticResource PrimaryColor}" FontFamily="Wingdings" Content="&lt;"/>
-                    <Button Padding="3" FontSize="15" BorderThickness="0" Background="Transparent" Foreground="{StaticResource PrimaryColor}" FontFamily="Wingdings" Content="="/>
-                </StackPanel>
-            </Border>
         </WrapPanel>
         <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="3" Grid.Column="0" Background="Transparent" ItemsSource="{Binding DdrawEntries}">
                 <ListBox.ItemsPanel>
