@@ -104,6 +104,7 @@ namespace Fallotium.DdrawIniManager
         public ICommand AddNewFile { get; set; }
         public ICommand AddPreset { get; set; }
         public ICommand DeletePreset { get; set; }
+        public ICommand PresetSwticher { get; set; }
 
         public IniEditorViewModel()
         {
@@ -127,6 +128,7 @@ namespace Fallotium.DdrawIniManager
             AddNewFile = new FileAdder(this);
             AddPreset = new PresetAdder(this);
             DeletePreset = new PresetDelete(this);
+            PresetSwticher = new PresetSwitch(this);
         }
 
         private void ComposeData()
@@ -155,6 +157,12 @@ namespace Fallotium.DdrawIniManager
             //Fill file content area
             DdrawEntries = IniReader.GetDdrawEntriesFromFile(iniFile.FilePath);
             ActiveFile = iniFile;
+        }
+
+        internal void SwitchPreset(Preset preset)
+        {
+            //Edit DdrawEntries
+
         }
 
         internal class IniFilePresetTextParam

@@ -1,5 +1,6 @@
 ﻿using Fallotium.Core.SettingsManagment;
 using Fallotium.DdrawIniManager.Models;
+using Fallotium.IniManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -134,7 +135,14 @@ namespace Fallotium.DdrawIniManager.Operations
                 {
                     var id = xPreset.Attribute("Id").Value;
                     var name = xPreset.Attribute("Name").Value;
+
+                    var presetOptionsOc = new ObservableCollection<PresetOption>();
+                    foreach (var xPresetOptions in xPreset.Descendants("PresetOption"))
+                    {
+
+                    }
                     var preset = new Preset(Int32.Parse(id), name, iniFile);
+
                     presetOc.Add(preset);
                 }
                 iniFile.Presets = presetOc;

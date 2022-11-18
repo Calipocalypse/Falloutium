@@ -2,6 +2,7 @@
 using Fallotium.DdrawIniManager;
 using Fallotium.DdrawIniManager.Models;
 using Fallotium.DdrawIniManager.Operations;
+using Fallotium.IniManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,8 +29,9 @@ namespace Fallotium.IniManager.Commands
             var presetNameFromTextBox = presetParam.presetName;
             var activeFile = presetParam.iniFile;
             var id = GetFreeId(Vm.Presets);
+            var emptyCollectionOfPresetOptions = new ObservableCollection<PresetOption>();
 
-            var newPreset = new Preset(id, presetNameFromTextBox, activeFile);
+            var newPreset = new Preset(id, presetNameFromTextBox, activeFile, emptyCollectionOfPresetOptions);
 
             //Ui
             Vm.Presets.Add(newPreset);

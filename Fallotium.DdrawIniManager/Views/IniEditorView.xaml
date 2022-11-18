@@ -65,7 +65,7 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <Border Margin="2" Background="{StaticResource PrimaryColor}" CornerRadius="5">
-                                <TextBlock Foreground="White" Padding="3" VerticalAlignment="Center" Text="{Binding Name}"/>
+                                <Button Command="{Binding ElementName=PresetListView, Path=DataContext.PresetSwticher}" CommandParameter="{Binding}" Foreground="White" Padding="3" VerticalAlignment="Center" Content="{Binding Name}"/>
                             </Border>
                             <Button Padding="3" FontSize="15" BorderThickness="0" Background="Transparent" Foreground="{StaticResource PrimaryColor}" FontFamily="Wingdings" Content="&lt;"/>
                             <Button Content="-" Command="{Binding ElementName=PresetListView, Path=DataContext.DeletePreset}" CommandParameter="{Binding}"/>
